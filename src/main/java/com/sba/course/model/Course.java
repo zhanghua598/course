@@ -15,6 +15,14 @@ public class Course {
 	private String status;
 	private Integer progress;
 	private String userName;
+	private Date disabledDate;
+	
+	public Date getDisabledDate() {
+		return disabledDate;
+	}
+	public void setDisabledDate(Date disabledDate) {
+		this.disabledDate = disabledDate;
+	}
 	
 	public Integer getId() {
 		return id;

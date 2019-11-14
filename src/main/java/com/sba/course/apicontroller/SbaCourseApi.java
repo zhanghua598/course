@@ -325,4 +325,30 @@ public class SbaCourseApi {
 		}
 	}
 
+	
+	@RequestMapping(value = "/batchAvailableCourse", method = RequestMethod.PUT, produces = "application/json")
+	@ApiOperation(value = "SBA available Course")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "ok"), @ApiResponse(code = 400, message = "Bad Request"),
+			@ApiResponse(code = 401, message = "No Authroization"), @ApiResponse(code = 403, message = "No Permission"),
+			@ApiResponse(code = 404, message = "No Mentors Found"),
+			@ApiResponse(code = 500, message = "Internal Error") })
+	public ResponseEntity<RspModel> batchAvailableCourse() {
+
+		try {
+
+			courseMapper.batchAvailableCourse();
+
+			RspModel rsp = new RspModel();
+			rsp.setCode(200);
+			rsp.setMessage("Available Course");
+			return new ResponseEntity<RspModel>(rsp, HttpStatus.OK);
+
+		} catch (Exception ex) {
+			RspModel rsp = new RspModel();
+			rsp.setCode(500);
+			rsp.setMessage(ex.getMessage());
+			return new ResponseEntity<RspModel>(rsp, HttpStatus.INTERNAL_SERVER_ERROR);
+
+		}
+	}
 }

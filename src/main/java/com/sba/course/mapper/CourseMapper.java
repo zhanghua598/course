@@ -31,7 +31,7 @@ public interface CourseMapper {
 	@Update("update sba_course.course set status = #{status},schedule=#{schedule} where id = #{courseid}")
 	void updateCourseStatus(@Param("courseid") Integer courseid, @Param("status") String status, @Param("schedule") Integer schedule);
 	
-	@Update("update sba_course.course set status = 'disabled' where id = #{courseid}")
+	@Update("update sba_course.course set status = 'disabled',disabledDate=NOW() where id = #{courseid}")
 	void disableCourseStatus(@Param("courseid") Integer courseid);
 	
 	@Update("update sba_course.course set status = 'available' where id = #{courseid}")
@@ -51,4 +51,7 @@ public interface CourseMapper {
 	
 	@Update("update sba_course.course set name=#{name},description=#{description},skill=#{skill},startDate=#{startDate},endDate=#{endDate},fee=fee where id = #{id}")
 	void updateCourse(Course course);
+	
+	@Update("update sba_course.course set status = 'available' where DATEDIFF(NOW(),disabledDate) > 7 ")
+	void batchAvailableCourse();
 }
